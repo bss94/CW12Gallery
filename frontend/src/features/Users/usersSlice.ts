@@ -1,6 +1,6 @@
-import { GlobalError, User, ValidationError } from '../../types.ts';
-import { createSlice } from '@reduxjs/toolkit';
-import { googleLogin, login, register } from './usersThunks.ts';
+import { GlobalError, User, ValidationError } from "../../types.ts";
+import { createSlice } from "@reduxjs/toolkit";
+import { googleLogin, login, register } from "./usersThunks.ts";
 
 interface UsersState {
   user: User | null;
@@ -19,7 +19,7 @@ const initialState: UsersState = {
 };
 
 export const usersSlice = createSlice({
-  name: 'users',
+  name: "users",
   initialState,
   reducers: {
     unsetUser: (state) => {
@@ -81,5 +81,10 @@ export const usersReducer = usersSlice.reducer;
 
 export const { unsetUser } = usersSlice.actions;
 
-export const { selectUser, selectRegisterLoading, selectRegisterError, selectLoginLoading, selectLoginError } =
-  usersSlice.selectors;
+export const {
+  selectUser,
+  selectRegisterLoading,
+  selectRegisterError,
+  selectLoginLoading,
+  selectLoginError,
+} = usersSlice.selectors;

@@ -5,19 +5,22 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  IconButton,
   styled,
   Typography,
 } from "@mui/material";
 import { API_URL } from "../../../constants.ts";
 import { NavLink } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useAppSelector } from "../../../app/hooks.ts";
+import { selectDeleteGallery } from "../galleriesSlice.ts";
+import { LoadingButton } from "@mui/lab";
 
 interface Props {
   title: string;
   image: string;
   author: string;
   authorId: string;
+  id: string;
   onOpen: (image: string) => void;
   canDelete: boolean;
   galleryDelete: VoidFunction;
@@ -34,10 +37,12 @@ const GalleryItem: React.FC<Props> = ({
   author,
   authorId,
   onOpen,
+  id,
   canDelete,
   galleryDelete,
 }) => {
   const cardImage = `${API_URL}/${image}`;
+  const deleting = useAppSelector(selectDeleteGallery);
 
   return (
     <Card sx={{ maxWidth: 300 }}>
@@ -64,9 +69,17 @@ const GalleryItem: React.FC<Props> = ({
       </CardContent>
       {canDelete && (
         <CardActions sx={{ display: "flex", justifyContent: "end" }}>
-          <IconButton color="error" onClick={galleryDelete}>
+          <LoadingButton
+            onClick={galleryDelete}
+            loading={deleting === id}
+            disabled={deleting !== false}
+            loadingPosition="center"
+            color="error"
+            variant="text"
+            size="small"
+          >
             <DeleteIcon />
-          </IconButton>
+          </LoadingButton>
         </CardActions>
       )}
     </Card>

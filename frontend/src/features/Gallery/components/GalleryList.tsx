@@ -51,6 +51,7 @@ const GalleryList: React.FC<Props> = ({
                     image={gallery.image}
                     author={gallery.user.displayName}
                     authorId={gallery.user._id}
+                    id={gallery._id}
                     onOpen={onOpen}
                     canDelete={canDelete}
                     galleryDelete={() => galleryDelete(gallery._id)}

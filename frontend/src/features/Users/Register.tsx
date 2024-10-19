@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks.ts';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { Avatar, Box, Link, TextField, Typography } from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Grid from '@mui/material/Grid2';
-import { RegisterMutation } from '../../types.ts';
-import { LoadingButton } from '@mui/lab';
-import LoginIcon from '@mui/icons-material/Login';
-import FileInput from '../../UI/FileInput/FileInput.tsx';
-import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
-import { selectRegisterError, selectRegisterLoading } from './usersSlice.ts';
-import { googleLogin, register } from './usersThunks.ts';
+import React, { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { Avatar, Box, Link, TextField, Typography } from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Grid from "@mui/material/Grid2";
+import { RegisterMutation } from "../../types.ts";
+import { LoadingButton } from "@mui/lab";
+import LoginIcon from "@mui/icons-material/Login";
+import FileInput from "../../UI/FileInput/FileInput.tsx";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
+import { selectRegisterError, selectRegisterLoading } from "./usersSlice.ts";
+import { googleLogin, register } from "./usersThunks.ts";
 
 const Register = () => {
   const dispatch = useAppDispatch();
@@ -19,10 +19,10 @@ const Register = () => {
   const loading = useAppSelector(selectRegisterLoading);
 
   const [state, setState] = useState<RegisterMutation>({
-    email: '',
-    password: '',
-    confirmPassword: '',
-    displayName: '',
+    email: "",
+    password: "",
+    confirmPassword: "",
+    displayName: "",
     avatar: null,
   });
 
@@ -37,7 +37,9 @@ const Register = () => {
       [name]: value,
     }));
   };
-  const fileInputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const fileInputChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const { name, files } = event.target;
     const value = files && files[0] ? files[0] : null;
 
@@ -58,7 +60,7 @@ const Register = () => {
         avatar: state.avatar,
       };
       await dispatch(register(registerMutation)).unwrap();
-      navigate('/');
+      navigate("/");
     } catch (e) {
       //toast.error((e as Error).message);
     }
@@ -66,7 +68,7 @@ const Register = () => {
   const googleLoginHandler = async (credentialResponse: CredentialResponse) => {
     if (credentialResponse.credential) {
       await dispatch(googleLogin(credentialResponse.credential)).unwrap();
-      navigate('/');
+      navigate("/");
     }
   };
 
@@ -74,18 +76,22 @@ const Register = () => {
     <Box
       sx={{
         mt: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
       }}
     >
-      <Avatar sx={{ m: 1, bgcolor: '#2979ff' }}>
+      <Avatar sx={{ m: 1, bgcolor: "#2979ff" }}>
         <LockOutlinedIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
         Sign up
       </Typography>
-      <Box component="form" onSubmit={submitFormHandler} sx={{ mt: 3, width: 306 }}>
+      <Box
+        component="form"
+        onSubmit={submitFormHandler}
+        sx={{ mt: 3, width: 306 }}
+      >
         <Grid container direction="column" spacing={2}>
           <Grid size={12}>
             <TextField
@@ -97,8 +103,8 @@ const Register = () => {
               autoComplete="new-email"
               value={state.email}
               onChange={inputChangeHandler}
-              error={Boolean(getFieldError('email'))}
-              helperText={getFieldError('email')}
+              error={Boolean(getFieldError("email"))}
+              helperText={getFieldError("email")}
             />
           </Grid>
           <Grid size={12}>
@@ -111,8 +117,8 @@ const Register = () => {
               autoComplete="new-password"
               value={state.password}
               onChange={inputChangeHandler}
-              error={Boolean(getFieldError('password'))}
-              helperText={getFieldError('password')}
+              error={Boolean(getFieldError("password"))}
+              helperText={getFieldError("password")}
             />
           </Grid>
           <Grid size={12}>
@@ -125,8 +131,8 @@ const Register = () => {
               autoComplete="new-password"
               value={state.confirmPassword}
               onChange={inputChangeHandler}
-              error={Boolean(getFieldError('confirmPassword'))}
-              helperText={getFieldError('confirmPassword')}
+              error={Boolean(getFieldError("confirmPassword"))}
+              helperText={getFieldError("confirmPassword")}
             />
           </Grid>
           <Grid size={12}>
@@ -138,12 +144,17 @@ const Register = () => {
               autoComplete="new-displayName"
               value={state.displayName}
               onChange={inputChangeHandler}
-              error={Boolean(getFieldError('displayName'))}
-              helperText={getFieldError('displayName')}
+              error={Boolean(getFieldError("displayName"))}
+              helperText={getFieldError("displayName")}
             />
           </Grid>
           <Grid size={12}>
-            <FileInput label="Avatar" name="avatar" onChange={fileInputChangeHandler} required={true} />
+            <FileInput
+              label="Avatar"
+              name="avatar"
+              onChange={fileInputChangeHandler}
+              required={true}
+            />
           </Grid>
         </Grid>
         <LoadingButton
@@ -162,13 +173,17 @@ const Register = () => {
         </Link>
       </Box>
       <Box sx={{ pt: 2 }}>
-        <Typography component="h6" variant="h6" sx={{ my: 1, textAlign: 'center' }}>
+        <Typography
+          component="h6"
+          variant="h6"
+          sx={{ my: 1, textAlign: "center" }}
+        >
           or:
         </Typography>
         <GoogleLogin
           onSuccess={googleLoginHandler}
           onError={() => {
-            console.log('Login Failed');
+            console.log("Login Failed");
           }}
         />
       </Box>

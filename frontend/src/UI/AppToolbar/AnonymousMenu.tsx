@@ -1,6 +1,6 @@
-import { Button } from '@mui/material';
-import { NavLink } from 'react-router-dom';
-import Grid from '@mui/material/Grid2';
+import { Button } from "@mui/material";
+import { NavLink } from "react-router-dom";
+import Grid from "@mui/material/Grid2";
 
 const AnonymousMenu = () => {
   return (

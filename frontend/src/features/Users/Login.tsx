@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks.ts';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { LoginMutation } from '../../types.ts';
-import { Alert, Avatar, Box, Link, TextField, Typography } from '@mui/material';
-import LockOpenIcon from '@mui/icons-material/LockOpen';
-import Grid from '@mui/material/Grid2';
-import LoginIcon from '@mui/icons-material/Login';
-import { LoadingButton } from '@mui/lab';
-import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
-import { selectLoginError, selectLoginLoading } from './usersSlice.ts';
-import { googleLogin, login } from './usersThunks.ts';
+import React, { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { LoginMutation } from "../../types.ts";
+import { Alert, Avatar, Box, Link, TextField, Typography } from "@mui/material";
+import LockOpenIcon from "@mui/icons-material/LockOpen";
+import Grid from "@mui/material/Grid2";
+import LoginIcon from "@mui/icons-material/Login";
+import { LoadingButton } from "@mui/lab";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
+import { selectLoginError, selectLoginLoading } from "./usersSlice.ts";
+import { googleLogin, login } from "./usersThunks.ts";
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -18,8 +18,8 @@ const Login = () => {
   const loading = useAppSelector(selectLoginLoading);
 
   const [state, setState] = useState<LoginMutation>({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,12 +33,12 @@ const Login = () => {
   const submitFormHandler = async (event: React.FormEvent) => {
     event.preventDefault();
     await dispatch(login(state)).unwrap();
-    navigate('/');
+    navigate("/");
   };
   const googleLoginHandler = async (credentialResponse: CredentialResponse) => {
     if (credentialResponse.credential) {
       await dispatch(googleLogin(credentialResponse.credential)).unwrap();
-      navigate('/');
+      navigate("/");
     }
   };
 
@@ -46,12 +46,12 @@ const Login = () => {
     <Box
       sx={{
         mt: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
       }}
     >
-      <Avatar sx={{ m: 1, bgcolor: '#2979ff' }}>
+      <Avatar sx={{ m: 1, bgcolor: "#2979ff" }}>
         <LockOpenIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
@@ -61,11 +61,15 @@ const Login = () => {
         <GoogleLogin
           onSuccess={googleLoginHandler}
           onError={() => {
-            console.log('Login Failed');
+            console.log("Login Failed");
           }}
         />
       </Box>
-      <Box component="form" onSubmit={submitFormHandler} sx={{ mt: 3, width: 306 }}>
+      <Box
+        component="form"
+        onSubmit={submitFormHandler}
+        sx={{ mt: 3, width: 306 }}
+      >
         <Grid container direction="column" spacing={2}>
           <Grid size={12}>
             <TextField
@@ -107,7 +111,7 @@ const Login = () => {
           Or Sign up
         </Link>
         {error && (
-          <Alert severity="error" sx={{ mt: 3, width: '100%' }}>
+          <Alert severity="error" sx={{ mt: 3, width: "100%" }}>
             {error.error}
           </Alert>
         )}
