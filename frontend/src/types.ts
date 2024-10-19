@@ -38,7 +38,7 @@ export interface GlobalError {
 
 interface GalleryUser {
   _id: string;
-  email: string;
+  displayName: string;
 }
 
 export interface Gallery {
