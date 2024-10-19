@@ -11,6 +11,7 @@ import {
   REHYDRATE,
 } from "redux-persist";
 import { usersReducer } from "../features/Users/usersSlice.ts";
+import { galleriesReducer } from "../features/Gallery/galleriesSlice.ts";
 
 const userPersistConfig = {
   key: "CW12-bss:users",
@@ -20,6 +21,7 @@ const userPersistConfig = {
 
 const rootReducer = combineReducers({
   users: persistReducer(userPersistConfig, usersReducer),
+  galleries: galleriesReducer,
 });
 
 export const store = configureStore({

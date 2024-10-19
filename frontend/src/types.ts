@@ -35,3 +35,15 @@ export interface ValidationError {
 export interface GlobalError {
   error: string;
 }
+
+interface GalleryUser {
+  _id: string;
+  email: string;
+}
+
+export interface Gallery {
+  _id: string;
+  user: GalleryUser;
+  title: string;
+  image: string;
+}
