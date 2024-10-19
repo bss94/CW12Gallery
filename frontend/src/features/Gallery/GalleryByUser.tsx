@@ -53,7 +53,7 @@ const GalleryByUser = () => {
           </Typography>
         )}
         {!loading && user?._id === id && (
-          <StyledLink to="/new-image">
+          <StyledLink to="/gallery-add">
             <Button variant="outlined">add new photo</Button>
           </StyledLink>
         )}

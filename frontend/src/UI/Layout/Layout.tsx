@@ -1,6 +1,6 @@
-import React, { PropsWithChildren } from 'react';
-import AppToolbar from '../AppToolbar/AppToolbar.tsx';
-import { Container } from '@mui/material';
+import React, { PropsWithChildren } from "react";
+import AppToolbar from "../AppToolbar/AppToolbar.tsx";
+import { Container } from "@mui/material";
 
 const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -8,7 +8,7 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
       <header>
         <AppToolbar />
       </header>
-      <Container maxWidth="lg" component="main">
+      <Container maxWidth="md" component="main">
         {children}
       </Container>
     </>

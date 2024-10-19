@@ -9,6 +9,7 @@ import Register from "./features/Users/Register.tsx";
 import Login from "./features/Users/Login.tsx";
 import Gallery from "./features/Gallery/Gallery.tsx";
 import GalleryByUser from "./features/Gallery/GalleryByUser.tsx";
+import NewGallery from "./features/Gallery/NewGallery.tsx";
 
 const App = () => {
   const user = useAppSelector(selectUser);
@@ -24,10 +25,10 @@ const App = () => {
           element={<Navigate to={`/gallery_user/${user?._id}`} />}
         />
         <Route
-          path="/new-image"
+          path="/gallery-add"
           element={
             <ProtectedRoute isAllowed={user !== null}>
-              <div />
+              <NewGallery />
             </ProtectedRoute>
           }
         />

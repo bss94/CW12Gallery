@@ -51,7 +51,7 @@ const UserMenu: React.FC<Props> = ({ user }) => {
       <Menu open={isOpen} anchorEl={anchorEl} keepMounted onClose={handleClose}>
         <MenuItem onClick={userLogout}>Logout</MenuItem>
         <MenuItem>
-          <StyledLink to="/gallary-add">Add new Picture</StyledLink>
+          <StyledLink to="/gallery-add">Add new Picture</StyledLink>
         </MenuItem>
         <MenuItem>
           <StyledLink to="/my-gallery">My Gallery</StyledLink>

@@ -39,7 +39,7 @@ galleriesRouter.delete('/:id', auth, async (req: RequestWithUser, res, next) => 
     if (req.user) {
       const galleryToDelete = await Gallery.findById(galleryId);
       if (!galleryToDelete) return res.status(404).send({ error: 'Gallery not found' });
-      if (req.user.role === 'admin' || req.user._id === galleryToDelete.user._id) {
+      if (req.user.role === 'admin' || req.user._id.toString() === galleryToDelete.user._id.toString()) {
         await galleryToDelete.deleteOne();
         return res.status(200).send({ deleted: true });
       }
