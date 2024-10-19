@@ -2,12 +2,20 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
 import { selectUser } from "../Users/usersSlice.ts";
 import { selectFetchGalleries, selectGalleries } from "./galleriesSlice.ts";
-import { fetchGalleries } from "./galleriesThunk.ts";
+import { deleteGallery, fetchGalleries } from "./galleriesThunk.ts";
 import Grid from "@mui/material/Grid2";
-import { Typography } from "@mui/material";
+import { Button, styled, Typography } from "@mui/material";
 import LoadingSpinner from "../../UI/LoadingSpinner/LoadingSpinner.tsx";
 import GalleryList from "./components/GalleryList.tsx";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+
+const StyledLink = styled(Link)({
+  color: "inherit",
+  textDecoration: "none",
+  "&:hover": {
+    color: "inherit",
+  },
+});
 
 const GalleryByUser = () => {
   const { id } = useParams();
@@ -18,10 +26,22 @@ const GalleryByUser = () => {
 
   useEffect(() => {
     dispatch(fetchGalleries(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
+
+  const galleryDelete = async (galleryId: string) => {
+    try {
+      await dispatch(deleteGallery(galleryId)).unwrap();
+      await dispatch(fetchGalleries(id));
+    } catch (error) {}
+  };
   return (
     <Grid container spacing={2}>
-      <Grid size={12}>
+      <Grid
+        size={12}
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+      >
         {!loading && galleries.length > 0 && (
           <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
             {galleries[0].user.displayName} Gallery
@@ -32,16 +52,23 @@ const GalleryByUser = () => {
             {user?.displayName} Gallery
           </Typography>
         )}
+        {!loading && user?._id === id && (
+          <StyledLink to="/new-image">
+            <Button variant="outlined">add new photo</Button>
+          </StyledLink>
+        )}
       </Grid>
       <LoadingSpinner loading={loading} />
-      <Grid size={12}>
-        {!loading && (
+
+      {!loading && (
+        <Grid size={12}>
           <GalleryList
             galleries={galleries}
             canDelete={user?._id === id || user?.role === "admin"}
+            galleryDelete={galleryDelete}
           />
-        )}
-      </Grid>
+        </Grid>
+      )}
     </Grid>
   );
 };

@@ -20,6 +20,7 @@ interface Props {
   authorId: string;
   onOpen: (image: string) => void;
   canDelete: boolean;
+  galleryDelete: VoidFunction;
 }
 
 const ImageCardMedia = styled(CardMedia)({
@@ -34,6 +35,7 @@ const GalleryItem: React.FC<Props> = ({
   authorId,
   onOpen,
   canDelete,
+  galleryDelete,
 }) => {
   const cardImage = `${API_URL}/${image}`;
 
@@ -62,7 +64,7 @@ const GalleryItem: React.FC<Props> = ({
       </CardContent>
       {canDelete && (
         <CardActions sx={{ display: "flex", justifyContent: "end" }}>
-          <IconButton color="error">
+          <IconButton color="error" onClick={galleryDelete}>
             <DeleteIcon />
           </IconButton>
         </CardActions>

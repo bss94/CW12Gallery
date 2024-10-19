@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./UI/Layout/Layout";
 import { useAppSelector } from "./app/hooks.ts";
 import { selectUser } from "./features/Users/usersSlice.ts";
@@ -19,6 +19,10 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/gallery_user/:id" element={<GalleryByUser />} />
+        <Route
+          path="/my-gallery"
+          element={<Navigate to={`/gallery_user/${user?._id}`} />}
+        />
         <Route
           path="/new-image"
           element={

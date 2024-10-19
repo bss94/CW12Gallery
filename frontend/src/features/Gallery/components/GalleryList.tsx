@@ -14,9 +14,14 @@ import {
 interface Props {
   galleries: Gallery[];
   canDelete: boolean;
+  galleryDelete: (id: string) => void;
 }
 
-const GalleryList: React.FC<Props> = ({ galleries, canDelete }) => {
+const GalleryList: React.FC<Props> = ({
+  galleries,
+  canDelete,
+  galleryDelete,
+}) => {
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState<boolean>(false);
   const picture = useAppSelector(selectFullPicture);
@@ -48,6 +53,7 @@ const GalleryList: React.FC<Props> = ({ galleries, canDelete }) => {
                     authorId={gallery.user._id}
                     onOpen={onOpen}
                     canDelete={canDelete}
+                    galleryDelete={() => galleryDelete(gallery._id)}
                   />
                 </Paper>
               </Grow>
