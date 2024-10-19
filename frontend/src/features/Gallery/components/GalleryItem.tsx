@@ -2,6 +2,7 @@ import React from "react";
 import {
   Button,
   Card,
+  CardActionArea,
   CardActions,
   CardContent,
   CardMedia,
@@ -21,7 +22,7 @@ interface Props {
 
 const ImageCardMedia = styled(CardMedia)({
   height: 0,
-  paddingTop: "56.25%",
+  paddingTop: "66.25%",
 });
 
 const GalleryItem: React.FC<Props> = ({
@@ -35,11 +36,18 @@ const GalleryItem: React.FC<Props> = ({
 
   return (
     <Card sx={{ maxWidth: 300 }}>
-      <ImageCardMedia image={cardImage} title={title} />
+      <CardActionArea
+        onClick={() => {
+          console.log(cardImage);
+        }}
+      >
+        <ImageCardMedia image={cardImage} title={title} />
+      </CardActionArea>
+
       <CardContent>
         <Typography
           gutterBottom
-          variant="h6"
+          variant="body1"
           component="div"
           textAlign="center"
         >
@@ -47,11 +55,11 @@ const GalleryItem: React.FC<Props> = ({
         </Typography>
         <Typography
           gutterBottom
-          variant="h6"
+          variant="body2"
           component="div"
           textAlign="center"
         >
-          {author}
+          By:{author}
         </Typography>
       </CardContent>
       {user && (user.role === "admin" || user._id === authorId) && (

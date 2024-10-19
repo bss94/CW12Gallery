@@ -8,8 +8,8 @@ const galleriesRouter = express.Router();
 galleriesRouter.get('/', async (req, res, next) => {
   try {
     const userId = req.query.user;
-    const galleries = await Gallery.find(userId ? { user: userId } : {});
-    return res.send([]);
+    const galleries = await Gallery.find(userId ? { user: userId } : {}).populate('user', 'displayName');
+    return res.send(galleries);
   } catch (err) {
     next(err);
   }

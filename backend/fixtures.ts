@@ -43,7 +43,7 @@ const run = async () => {
       image: 'fixtures/margarita.jpg',
     },
     {
-      author: admin,
+      user: admin,
       title: 'Tommy Margarita',
       image: 'fixtures/tomy.jpg',
     },
@@ -58,12 +58,12 @@ const run = async () => {
       image: 'fixtures/mountain.jpg',
     },
     {
-      author: user,
+      user: user,
       title: 'Tiger',
       image: 'fixtures/tiger.jpg',
     },
     {
-      author: user,
+      user: user,
       title: 'Sunflower',
       image: 'fixtures/sunflower.jpg',
     },
