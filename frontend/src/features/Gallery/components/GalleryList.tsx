@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Gallery, User } from "../../../types.ts";
+import { Gallery } from "../../../types.ts";
 import Grid from "@mui/material/Grid2";
 import { Alert, Grow, Paper } from "@mui/material";
 import GalleryItem from "./GalleryItem.tsx";
@@ -13,10 +13,10 @@ import {
 
 interface Props {
   galleries: Gallery[];
-  user: User | null;
+  canDelete: boolean;
 }
 
-const GalleryList: React.FC<Props> = ({ galleries, user }) => {
+const GalleryList: React.FC<Props> = ({ galleries, canDelete }) => {
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState<boolean>(false);
   const picture = useAppSelector(selectFullPicture);
@@ -47,7 +47,7 @@ const GalleryList: React.FC<Props> = ({ galleries, user }) => {
                     author={gallery.user.displayName}
                     authorId={gallery.user._id}
                     onOpen={onOpen}
-                    user={user}
+                    canDelete={canDelete}
                   />
                 </Paper>
               </Grow>

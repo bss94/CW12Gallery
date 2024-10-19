@@ -1,24 +1,25 @@
 import React from "react";
 import {
-  Button,
   Card,
   CardActionArea,
   CardActions,
   CardContent,
   CardMedia,
+  IconButton,
   styled,
   Typography,
 } from "@mui/material";
 import { API_URL } from "../../../constants.ts";
-import { User } from "../../../types.ts";
+import { NavLink } from "react-router-dom";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 interface Props {
   title: string;
   image: string;
   author: string;
   authorId: string;
-  user: User | null;
   onOpen: (image: string) => void;
+  canDelete: boolean;
 }
 
 const ImageCardMedia = styled(CardMedia)({
@@ -31,8 +32,8 @@ const GalleryItem: React.FC<Props> = ({
   image,
   author,
   authorId,
-  user,
   onOpen,
+  canDelete,
 }) => {
   const cardImage = `${API_URL}/${image}`;
 
@@ -55,18 +56,15 @@ const GalleryItem: React.FC<Props> = ({
         >
           {title}
         </Typography>
-        <Typography
-          gutterBottom
-          variant="body2"
-          component="div"
-          textAlign="center"
-        >
-          By:{author}
+        <Typography variant="body2" component="div" textAlign="center">
+          By:<NavLink to={`/gallery_user/${authorId}`}>{author}</NavLink>
         </Typography>
       </CardContent>
-      {user && (user.role === "admin" || user._id === authorId) && (
-        <CardActions>
-          <Button>delete</Button>
+      {canDelete && (
+        <CardActions sx={{ display: "flex", justifyContent: "end" }}>
+          <IconButton color="error">
+            <DeleteIcon />
+          </IconButton>
         </CardActions>
       )}
     </Card>

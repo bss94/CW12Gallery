@@ -8,6 +8,7 @@ import { Typography } from "@mui/material";
 import Register from "./features/Users/Register.tsx";
 import Login from "./features/Users/Login.tsx";
 import Gallery from "./features/Gallery/Gallery.tsx";
+import GalleryByUser from "./features/Gallery/GalleryByUser.tsx";
 
 const App = () => {
   const user = useAppSelector(selectUser);
@@ -17,7 +18,7 @@ const App = () => {
         <Route path="/" element={<Gallery />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/gallery_user/:id" element={<div />} />
+        <Route path="/gallery_user/:id" element={<GalleryByUser />} />
         <Route
           path="/new-image"
           element={
