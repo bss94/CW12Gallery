@@ -47,3 +47,7 @@ export interface Gallery {
   title: string;
   image: string;
 }
+export interface GalleryMutation {
+  title: string;
+  image: File | null;
+}
