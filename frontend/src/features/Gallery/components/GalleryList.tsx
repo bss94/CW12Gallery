@@ -4,7 +4,12 @@ import Grid from "@mui/material/Grid2";
 import { Alert, Grow, Paper } from "@mui/material";
 import GalleryItem from "./GalleryItem.tsx";
 import GalleryModal from "./GalleryModal.tsx";
-import { useAppDispatch } from "../../../app/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks.ts";
+import {
+  hidePicture,
+  selectFullPicture,
+  showPicture,
+} from "../galleriesSlice.ts";
 
 interface Props {
   galleries: Gallery[];
@@ -14,9 +19,14 @@ interface Props {
 const GalleryList: React.FC<Props> = ({ galleries, user }) => {
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState<boolean>(false);
-  const onOpen = () => {
+  const picture = useAppSelector(selectFullPicture);
+  const onOpen = (image: string) => {
+    dispatch(showPicture(image));
     setOpen(true);
-    dispatch();
+  };
+  const onClose = () => {
+    setOpen(false);
+    dispatch(hidePicture());
   };
 
   return (
@@ -36,13 +46,14 @@ const GalleryList: React.FC<Props> = ({ galleries, user }) => {
                     image={gallery.image}
                     author={gallery.user.displayName}
                     authorId={gallery.user._id}
+                    onOpen={onOpen}
                     user={user}
                   />
                 </Paper>
               </Grow>
             </Grid>
           ))}
-          <GalleryModal />
+          <GalleryModal image={picture} show={open} onClose={onClose} />
         </>
       ) : (
         <Alert severity="info">Galleries not found!</Alert>

@@ -1,5 +1,5 @@
 import { Gallery } from "../../types.ts";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   createGallery,
   deleteGallery,
@@ -11,6 +11,7 @@ interface GalleriesState {
   fetchingGalleries: boolean;
   deletingGallery: string | false;
   creatingGallery: boolean;
+  fullPicture: string | false;
 }
 
 const initialState: GalleriesState = {
@@ -18,12 +19,20 @@ const initialState: GalleriesState = {
   fetchingGalleries: false,
   deletingGallery: false,
   creatingGallery: false,
+  fullPicture: false,
 };
 
 export const galleriesSlice = createSlice({
   name: "galleries",
   initialState,
-  reducers: {},
+  reducers: {
+    showPicture: (state, { payload: image }: PayloadAction<string>) => {
+      state.fullPicture = image;
+    },
+    hidePicture: (state) => {
+      state.fullPicture = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchGalleries.pending, (state) => {
@@ -62,14 +71,18 @@ export const galleriesSlice = createSlice({
     selectFetchGalleries: (state) => state.fetchingGalleries,
     selectDeleteGallery: (state) => state.deletingGallery,
     selectCreateGallery: (state) => state.creatingGallery,
+    selectFullPicture: (state) => state.fullPicture,
   },
 });
 
 export const galleriesReducer = galleriesSlice.reducer;
+
+export const { showPicture, hidePicture } = galleriesSlice.actions;
 
 export const {
   selectGalleries,
   selectCreateGallery,
   selectFetchGalleries,
   selectDeleteGallery,
+  selectFullPicture,
 } = galleriesSlice.selectors;

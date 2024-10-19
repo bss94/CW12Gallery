@@ -18,6 +18,7 @@ interface Props {
   author: string;
   authorId: string;
   user: User | null;
+  onOpen: (image: string) => void;
 }
 
 const ImageCardMedia = styled(CardMedia)({
@@ -31,6 +32,7 @@ const GalleryItem: React.FC<Props> = ({
   author,
   authorId,
   user,
+  onOpen,
 }) => {
   const cardImage = `${API_URL}/${image}`;
 
@@ -38,7 +40,7 @@ const GalleryItem: React.FC<Props> = ({
     <Card sx={{ maxWidth: 300 }}>
       <CardActionArea
         onClick={() => {
-          console.log(cardImage);
+          onOpen(cardImage);
         }}
       >
         <ImageCardMedia image={cardImage} title={title} />
